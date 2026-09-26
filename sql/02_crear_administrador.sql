@@ -12,7 +12,7 @@ select
   (select id from roles where nombre = 'admin'),
   true
 from auth.users u
-where u.email = 'fanny.salamanca.maqueda@gmail.com'
+where u.email = 'tu-correo@ejemplo.com'
 on conflict (id) do update set rol_id = (select id from roles where nombre = 'admin');
 
 -- Verifica que funcionó:
