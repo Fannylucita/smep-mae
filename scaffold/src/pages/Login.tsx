@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function Login() {
-  const { iniciarSesion } = useAuth();
+  const { iniciarSesion, perfil } = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
+
+  // En cuanto el perfil se cargue (login exitoso), redirige al dashboard.
+  useEffect(() => {
+    if (perfil) navigate('/', { replace: true });
+  }, [perfil, navigate]);
 
   async function manejarEnvio(e: React.FormEvent) {
     e.preventDefault();
